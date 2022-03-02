@@ -1,42 +1,27 @@
-import React from 'react';
-import { setProducts } from '../../store/products';
-import { connect } from 'react-redux';
-import SingleProduct from './SingleProduct';
+import React from "react";
+import { setProducts } from "../../store/products";
+import { connect } from "react-redux";
+import SingleProduct from "./SingleProduct";
 
 class AllProducts extends React.Component {
-  constructor({ user, authenticated }) {
-    super({ user, authenticated });
-  }
-  // const [products, setProduct] = useState([]);
-
-  // const showProducts = async () => {
-  //   const res = await GetProducts();
-  //   setProducts(res);
-  // };
-
   componentDidMount() {
     this.props.setProducts();
+  }
+
+  allProducts(products) {
+    return (
+      <div>
+        {products.map((product) => {
+          <SingleProduct key={product.id} product={product} />;
+        })}
+      </div>
+    );
   }
 
   render() {
     const { products } = this.props;
     console.log(products);
-    return (
-      <div className="product">
-        {products.length > 0 &&
-          products.map((product) => (
-            <SingleProduct
-              key={product.id}
-              id={product.id}
-              title={product.name}
-              image={product.imageURL}
-              price={product.price}
-              // user={user}
-              // authenticated={authenticated}
-            />
-          ))}
-      </div>
-    );
+    return <div>{this.allProducts(products)}</div>;
   }
 }
 

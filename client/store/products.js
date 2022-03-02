@@ -1,6 +1,6 @@
-import axios from 'axios';
+import axios from "axios";
 // action type
-const SET_PRODUCTS = 'SET_PRODUCTS';
+const SET_PRODUCTS = "SET_PRODUCTS";
 
 // action creator
 const _setProducts = (products) => {
@@ -9,11 +9,11 @@ const _setProducts = (products) => {
     products,
   };
 };
-// thunks
+// thunks creator
 export const setProducts = () => {
   return async (dispatch) => {
     try {
-      const { data: products } = await axios.get('/api/products');
+      const { data: products } = await axios.get("/api/products");
       dispatch(_setProducts(products));
     } catch (error) {
       console.log(error);

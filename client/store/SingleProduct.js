@@ -1,7 +1,8 @@
-import Axios from 'axios';
+import Axios from "axios";
+//action creator
+const SET_PRODUCT = "SET_PRODUCT";
 
-const SET_PRODUCT = 'SET_PRODUCT';
-
+// action creator
 export const setProduct = (product) => {
   return {
     type: SET_PRODUCT,
@@ -9,6 +10,7 @@ export const setProduct = (product) => {
   };
 };
 
+// thunks creator
 export const fetchProduct = (id) => {
   return async (dispatch) => {
     try {

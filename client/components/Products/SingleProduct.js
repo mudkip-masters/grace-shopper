@@ -1,7 +1,7 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { fetchProduct } from '../../store/SingleProduct';
-import { connect } from 'react-redux';
+import React from "react";
+import { Link } from "react-router-dom";
+import { fetchProduct } from "../../store/SingleProduct";
+import { connect } from "react-redux";
 
 class SingleProduct extends React.Component {
   constructor({ id, title, image, price, user, authenticated }) {
@@ -13,7 +13,7 @@ class SingleProduct extends React.Component {
   }
 
   render() {
-    console.log('hello..', this.props.products);
+    console.log("component props", this.props.products);
     return (
       <div>
         <Link to={`/products/ProductsDetails/${this.props.match.params.id}`}>
@@ -36,7 +36,7 @@ class SingleProduct extends React.Component {
 }
 
 const mapState = (state) => {
-  console.log('state in maps', state.products);
+  console.log("state in maps", state.products);
   return {
     products: state.products,
   };
