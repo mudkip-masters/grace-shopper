@@ -17,6 +17,7 @@ const Product = db.define("product", {
     type: Sequelize.STRING,
     allowNull: false,
   },
+  // o: consider changing this to MONEY or INTEGER
   price: {
     type: Sequelize.DOUBLE,
     allowNull: false,

@@ -6,6 +6,7 @@ const User = require("./models/User");
 
 //associations could go here!
 
+// o: how do you make orders have more than one product?
 User.belongsToMany(Product, { through: "Orders" });
 Product.belongsToMany(User, { through: "Orders" });
 

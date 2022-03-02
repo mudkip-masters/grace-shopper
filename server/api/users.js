@@ -2,6 +2,7 @@ const router = require('express').Router()
 const { models: { User }} = require('../db')
 module.exports = router
 
+// o: only logged in admin users should be able to see this
 router.get('/', async (req, res, next) => {
   try {
     const users = await User.findAll({

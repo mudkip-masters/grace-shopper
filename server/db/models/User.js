@@ -16,6 +16,7 @@ const User = db.define("user", {
     type: Sequelize.STRING,
     allowNull: false,
   },
+  // o: probably better just being a boolean
   userType: {
     type: Sequelize.ENUM("user", "admin"),
     defaultValue: "user",

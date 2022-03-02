@@ -24,6 +24,7 @@ class AllProducts extends React.Component {
     return (
       <div className="product">
         {products.length > 0 &&
+          // o: consider just passing in the product as is 
           products.map((product) => (
             <ProductCard
               key={product.id}
