@@ -1,7 +1,7 @@
 import React from 'react';
-import ProductCard from './ProductCard';
 import { setProducts } from '../../store/products';
 import { connect } from 'react-redux';
+import SingleProduct from './SingleProduct';
 
 class AllProducts extends React.Component {
   constructor({ user, authenticated }) {
@@ -25,7 +25,7 @@ class AllProducts extends React.Component {
       <div className="product">
         {products.length > 0 &&
           products.map((product) => (
-            <ProductCard
+            <SingleProduct
               key={product.id}
               id={product.id}
               title={product.name}
