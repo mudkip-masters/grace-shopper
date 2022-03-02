@@ -60,6 +60,7 @@ async function seed() {
   });
 
   await users[0].addProduct(products[0]);
+  await OrderOne.addProduct(pro);
 
   console.log(`seeded ${users.length} users`);
   console.log(`seeded successfully`);
