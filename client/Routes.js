@@ -1,11 +1,12 @@
 import React, { Component, Fragment, useEffect } from "react";
-import { connect, useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { withRouter, Route, Switch, Redirect } from "react-router-dom";
 import { Login, Signup } from "./components/AuthForm";
 import Home from "./components/Home";
 import { me } from "./store";
 import About from "./components/About/About";
 import AllProducts from "./components/Products/AllProducts";
+import SingleProduct from "./components/Products/SingleProduct";
 
 /**
  * COMPONENT
@@ -24,6 +25,8 @@ const Routes = () => {
         <Switch>
           <Route path="/home" component={Home} />
           <Redirect to="/home" />
+          <Route exact path="/products" component={AllProducts} />
+          <Route exact path="/products/:id" component={SingleProduct} />
         </Switch>
       ) : (
         <Switch>
@@ -34,6 +37,7 @@ const Routes = () => {
           <Route path="/signup">{Signup}</Route>
           <Route exact path="/About" component={About} />
           <Route exact path="/Products" component={AllProducts} />
+          <Route exact path="/products/:id" component={SingleProduct} />
         </Switch>
       )}
     </div>
