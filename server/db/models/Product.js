@@ -18,7 +18,7 @@ const Product = db.define("product", {
     allowNull: false,
   },
   price: {
-    type: Sequelize.DOUBLE,
+    type: Sequelize.DECIMAL,
     allowNull: false,
   },
   calories: {
