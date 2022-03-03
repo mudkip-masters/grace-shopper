@@ -4,6 +4,7 @@ const {
   db,
   models: { User, Product },
 } = require("../server/db");
+const Order = require("../server/db/models/Order");
 
 /**
  * seed - this function clears the database, updates tables to
@@ -51,6 +52,16 @@ async function seed() {
       calories: 800,
     }),
   ]);
+
+  const OrderOne = Order.create({
+    userId: 1,
+    productId: 1,
+    isFulfilled: true,
+  });
+
+  await users[0].addProduct(products[0]);
+  await OrderOne.addProduct(pro);
+
   console.log(`seeded ${users.length} users`);
   console.log(`seeded successfully`);
   return {
