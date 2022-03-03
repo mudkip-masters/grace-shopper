@@ -1,46 +1,52 @@
-import React from 'react';
-import ProductCard from './ProductCard';
-import { setProducts } from '../../store/products';
-import { connect } from 'react-redux';
+import React from "react";
+import { setProducts } from "../../store/products";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 class AllProducts extends React.Component {
-  constructor({ user, authenticated }) {
-    super({ user, authenticated });
-  }
-  // const [products, setProduct] = useState([]);
-
-  // const showProducts = async () => {
-  //   const res = await GetProducts();
-  //   setProducts(res);
-  // };
-
   componentDidMount() {
     this.props.setProducts();
   }
 
   render() {
-    const { products } = this.props;
-    console.log(products);
     return (
-      <div className="product">
-        {products.length > 0 &&
-          products.map((product) => (
-            <ProductCard
-              key={product.id}
-              id={product.id}
-              title={product.name}
-              image={product.imageURL}
-              price={product.price}
-              // user={user}
-              // authenticated={authenticated}
-            />
-          ))}
+      <div>
+        {this.props.products === undefined || this.props.products === []
+          ? "No food"
+          : this.props.products.map((product) => {
+              return (
+                <div key={product.id}>
+                  <p>
+                    <Link to={`/products/${product.id}`}>
+                      Food Name:
+                      {product.name}
+                    </Link>
+                    &nbsp;&nbsp;&nbsp;
+                  </p>
+                  <p>
+                    <img src={product.imageURL} />
+                  </p>
+                  <p>
+                    <u>Food description: </u>
+                    {product.description}
+                  </p>
+                  <p>
+                    <u>Food Price: </u> {product.price}
+                  </p>
+                  <p>
+                    <u>Product calories: </u>
+                    {product.calories}
+                  </p>
+                </div>
+              );
+            })}
       </div>
     );
   }
 }
 
 const mapState = (state) => {
+  //console.log("mapStateProps", state);
   return {
     products: state.products,
   };
