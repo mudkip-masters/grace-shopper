@@ -6,6 +6,7 @@ const SET_SINGLE_PRODUCT = "SET_SINGLE_PRODUCT";
 export const setSingleProduct = (product) => {
   return {
     type: SET_SINGLE_PRODUCT,
+
     product,
   };
 };
@@ -16,6 +17,7 @@ export const fetchSingleProduct = (id) => {
     try {
       const { data } = await Axios.get(`/api/products/${id}`);
       dispatch(setSingleProduct(data));
+
     } catch (err) {
       console.log(err);
     }
@@ -25,6 +27,7 @@ export const fetchSingleProduct = (id) => {
 export default function productReducer(state = {}, action) {
   switch (action.type) {
     case SET_SINGLE_PRODUCT:
+
       console.log("here is action", action);
       return { ...action.product };
     default:

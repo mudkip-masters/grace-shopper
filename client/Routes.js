@@ -42,6 +42,7 @@ const Routes = () => {
       )}
     </div>
   );
+
 };
 
 // The `withRouter` wrapper makes sure that updates are not blocked
