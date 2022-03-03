@@ -1,44 +1,35 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { fetchProduct } from "../../store/SingleProduct";
 import { connect } from "react-redux";
 
 class SingleProduct extends React.Component {
-  constructor({ id, title, image, price, user, authenticated }) {
-    super(id, title, image, price, user, authenticated);
-  }
-
   componentDidMount() {
+    console.log(this.props, "this.props");
     this.props.fetchProduct(this.props.match.params.id);
   }
 
   render() {
-    console.log("component props", this.props.products);
+    console.log(`this is the current product: ${this.props.product.name}`);
+    // const product = this.props.products[this.props.match.params.id - 1];
+    // console.log("component props", product);
     return (
       <div>
-        <Link to={`/products/ProductsDetails/${this.props.match.params.id}`}>
-          <section>
-            <img className="product-image" src={image} alt="test" />
-          </section>
-        </Link>
-        <section>
-          <h3>{title}</h3>
-          <p>USD ${price}</p>
-          {user && authenticated && (
-            <button onClick={handleAddCart} className="add-button">
-              Add to Cart
-            </button>
-          )}
-        </section>
+        <ul>
+          <li>{this.props.product.name}</li>
+          <li>{this.props.product.imageURL}</li>
+          <li>{this.props.product.description}</li>
+          <li>{this.props.product.price}</li>
+          <li>{this.props.product.calories}</li>
+        </ul>
       </div>
     );
   }
 }
 
 const mapState = (state) => {
-  console.log("state in maps", state.products);
+  console.log("mapStateProps", state);
   return {
-    products: state.products,
+    product: state.product,
   };
 };
 const mapDispatch = (dispatch) => {

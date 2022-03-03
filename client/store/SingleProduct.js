@@ -27,7 +27,8 @@ let initialState = {};
 export default function productReducer(state = initialState, action) {
   switch (action.type) {
     case SET_PRODUCT:
-      return action.product;
+      console.log("here is action", action);
+      return { ...action.product };
     default:
       return state;
   }

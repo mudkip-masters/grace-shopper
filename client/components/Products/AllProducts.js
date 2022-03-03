@@ -1,31 +1,52 @@
 import React from "react";
 import { setProducts } from "../../store/products";
 import { connect } from "react-redux";
-import SingleProduct from "./SingleProduct";
+import { Link } from "react-router-dom";
 
 class AllProducts extends React.Component {
   componentDidMount() {
     this.props.setProducts();
   }
 
-  allProducts(products) {
+  render() {
     return (
       <div>
-        {products.map((product) => {
-          <SingleProduct key={product.id} product={product} />;
-        })}
+        {this.props.products === undefined || this.props.products === []
+          ? "No food"
+          : this.props.products.map((product) => {
+              return (
+                <div key={product.id}>
+                  <p>
+                    <Link to={`/products/${product.id}`}>
+                      Food Name:
+                      {product.name}
+                    </Link>
+                    &nbsp;&nbsp;&nbsp;
+                  </p>
+                  <p>
+                    <img src={product.imageURL} />
+                  </p>
+                  <p>
+                    <u>Food description: </u>
+                    {product.description}
+                  </p>
+                  <p>
+                    <u>Food Price: </u> {product.price}
+                  </p>
+                  <p>
+                    <u>Product calories: </u>
+                    {product.calories}
+                  </p>
+                </div>
+              );
+            })}
       </div>
     );
-  }
-
-  render() {
-    const { products } = this.props;
-    console.log(products);
-    return <div>{this.allProducts(products)}</div>;
   }
 }
 
 const mapState = (state) => {
+  //console.log("mapStateProps", state);
   return {
     products: state.products,
   };
