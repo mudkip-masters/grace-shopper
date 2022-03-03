@@ -23,8 +23,8 @@ const Routes = () => {
     <div>
       {isLoggedIn ? (
         <Switch>
-          <Route path="/home" component={Home} />
-          <Redirect to="/home" />
+          <Route path="/login" exact component={AllProducts} />
+          <Route exact path="/about" component={About} />
           <Route exact path="/products" component={AllProducts} />
           <Route exact path="/products/:id" component={SingleProduct} />
         </Switch>
