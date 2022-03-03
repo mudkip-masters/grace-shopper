@@ -1,41 +1,32 @@
-import React from "react";
-import { fetchProduct } from "../../store/SingleProduct";
-import { connect } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { fetchSingleProduct } from "../../store/SingleProduct";
+import { useDispatch, useSelector } from "react-redux";
 
-class SingleProduct extends React.Component {
-  componentDidMount() {
-    console.log(this.props, "this.props");
-    this.props.fetchProduct(this.props.match.params.id);
-  }
+const SingleProduct = (props) => {
+  const dispatch = useDispatch();
 
-  render() {
-    console.log(`this is the current product: ${this.props.product.name}`);
-    // const product = this.props.products[this.props.match.params.id - 1];
-    // console.log("component props", product);
-    return (
-      <div>
-        <ul>
-          <li>{this.props.product.name}</li>
-          <li>{this.props.product.imageURL}</li>
-          <li>{this.props.product.description}</li>
-          <li>{this.props.product.price}</li>
-          <li>{this.props.product.calories}</li>
-        </ul>
-      </div>
-    );
-  }
-}
+  const product =
+    useSelector((state) => {
+      return state.product;
+    }) || [];
 
-const mapState = (state) => {
-  console.log("mapStateProps", state);
-  return {
-    product: state.product,
-  };
-};
-const mapDispatch = (dispatch) => {
-  return {
-    fetchProduct: (id) => dispatch(fetchProduct(id)),
-  };
+  useEffect(() => {
+    dispatch(fetchSingleProduct(props.match.params.id));
+  }, []);
+
+  console.log(props.match.params.id);
+
+  return (
+    <div>
+      <ul>
+        <li>{product.name}</li>
+        <li>{product.imageURL}</li>
+        <li>{product.description}</li>
+        <li>{product.price}</li>
+        <li>{product.calories}</li>
+      </ul>
+    </div>
+  );
 };
 
-export default connect(mapState, mapDispatch)(SingleProduct);
+export default SingleProduct;

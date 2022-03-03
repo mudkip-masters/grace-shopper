@@ -1,61 +1,54 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { setProducts } from "../../store/products";
-import { connect } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-class AllProducts extends React.Component {
-  componentDidMount() {
-    this.props.setProducts();
-  }
+const AllProducts = () => {
+  const dispatch = useDispatch();
 
-  render() {
-    return (
-      <div>
-        {this.props.products === undefined || this.props.products === []
-          ? "No food"
-          : this.props.products.map((product) => {
-              return (
-                <div key={product.id}>
-                  <p>
-                    <Link to={`/products/${product.id}`}>
-                      Food Name:
-                      {product.name}
-                    </Link>
-                    &nbsp;&nbsp;&nbsp;
-                  </p>
-                  <p>
-                    <img src={product.imageURL} />
-                  </p>
-                  <p>
-                    <u>Food description: </u>
-                    {product.description}
-                  </p>
-                  <p>
-                    <u>Food Price: </u> {product.price}
-                  </p>
-                  <p>
-                    <u>Product calories: </u>
-                    {product.calories}
-                  </p>
-                </div>
-              );
-            })}
-      </div>
-    );
-  }
-}
+  const products =
+    useSelector((state) => {
+      return state.products;
+    }) || [];
 
-const mapState = (state) => {
-  //console.log("mapStateProps", state);
-  return {
-    products: state.products,
-  };
+  useEffect(() => {
+    dispatch(setProducts());
+  }, []);
+
+  return (
+    <div>
+      {products === undefined || products === []
+        ? "No food"
+        : products.map((product) => {
+            return (
+              <div key={product.id}>
+                <p>
+                  <Link to={`/products/${product.id}`}>
+                    Food Name:
+                    {product.name}
+                  </Link>
+                  &nbsp;&nbsp;&nbsp;
+                </p>
+                <p>
+                  <img src={product.imageURL} />
+                </p>
+                <p>
+                  <u>Food description: </u>
+                  {product.description}
+                </p>
+                <p>
+                  <u>Food Price: </u> {product.price}
+                </p>
+                <p>
+                  <u>Product calories: </u>
+                  {product.calories}
+                </p>
+              </div>
+            );
+          })}
+    </div>
+  );
+
 };
 
-const mapDispatch = (dispatch) => {
-  return {
-    setProducts: () => dispatch(setProducts()),
-  };
-};
-
-export default connect(mapState, mapDispatch)(AllProducts);
+export default AllProducts;
