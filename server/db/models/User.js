@@ -16,9 +16,9 @@ const User = db.define("user", {
     type: Sequelize.STRING,
     allowNull: false,
   },
-  userType: {
-    type: Sequelize.ENUM("user", "admin"),
-    defaultValue: "user",
+  isAdmin: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false,
   },
 });
 

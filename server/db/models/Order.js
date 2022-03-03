@@ -16,14 +16,6 @@ const Order = db.define("order", {
       key: "id",
     },
   },
-  productId: {
-    type: Sequelize.INTEGER,
-    references: {
-      model: Product,
-      key: "id",
-    },
-  },
-
   isFulfilled: {
     type: Sequelize.BOOLEAN,
     defaultValue: false,
