@@ -1,55 +1,27 @@
-import React from 'react';
-import ProductCard from './ProductCard';
-import { setProducts } from '../../store/products';
-import { connect } from 'react-redux';
+import React, { useEffect, useState } from "react";
+import ProductCard from "./ProductCard";
+import { setProducts } from "../../store/products";
+import { connect, useDispatch, useSelector } from "react-redux";
 
-class AllProducts extends React.Component {
-  constructor({ user, authenticated }) {
-    super({ user, authenticated });
-  }
-  // const [products, setProduct] = useState([]);
+const AllProducts = () => {
+  const dispatch = useDispatch();
+  const products =
+    useSelector((state) => {
+      return state.products;
+    }) || [];
 
-  // const showProducts = async () => {
-  //   const res = await GetProducts();
-  //   setProducts(res);
-  // };
+  useEffect(() => {
+    dispatch(setProducts());
+  }, []);
 
-  componentDidMount() {
-    this.props.setProducts();
-  }
-
-  render() {
-    const { products } = this.props;
-    console.log(products);
-    return (
-      <div className="product">
-        {products.length > 0 &&
-          products.map((product) => (
-            <ProductCard
-              key={product.id}
-              id={product.id}
-              title={product.name}
-              image={product.imageURL}
-              price={product.price}
-              // user={user}
-              // authenticated={authenticated}
-            />
-          ))}
-      </div>
-    );
-  }
-}
-
-const mapState = (state) => {
-  return {
-    products: state.products,
-  };
+  return (
+    <div className="product">
+      {products.length > 0 &&
+        products.map((product) => (
+          <ProductCard key={product.id} product={product} />
+        ))}
+    </div>
+  );
 };
 
-const mapDispatch = (dispatch) => {
-  return {
-    setProducts: () => dispatch(setProducts()),
-  };
-};
-
-export default connect(mapState, mapDispatch)(AllProducts);
+export default AllProducts;
