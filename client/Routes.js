@@ -7,6 +7,7 @@ import { me } from "./store";
 import About from "./components/About/About";
 import AllProducts from "./components/Products/AllProducts";
 import SingleProduct from "./components/Products/SingleProduct";
+import Cart from "./components/Cart/Cart";
 
 /**
  * COMPONENT
@@ -27,6 +28,7 @@ const Routes = () => {
           <Route exact path="/about" component={About} />
           <Route exact path="/products" component={AllProducts} />
           <Route exact path="/products/:id" component={SingleProduct} />
+          <Route exact path="/cart" component={Cart} />
         </Switch>
       ) : (
         <Switch>
@@ -38,11 +40,11 @@ const Routes = () => {
           <Route exact path="/About" component={About} />
           <Route exact path="/Products" component={AllProducts} />
           <Route exact path="/products/:id" component={SingleProduct} />
+          <Route exact path="/cart" component={Cart} />
         </Switch>
       )}
     </div>
   );
-
 };
 
 // The `withRouter` wrapper makes sure that updates are not blocked

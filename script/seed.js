@@ -1,10 +1,11 @@
-'use strict';
+"use strict";
 
 const {
   db,
   models: { User, Product },
-} = require('../server/db');
-const Order = require('../server/db/models/Order');
+} = require("../server/db");
+const Order = require("../server/db/models/Order");
+const OrderProduct = require("../server/db/models/OrderProduct");
 
 /**
  * seed - this function clears the database, updates tables to
@@ -12,55 +13,63 @@ const Order = require('../server/db/models/Order');
  */
 async function seed() {
   await db.sync({ force: true }); // clears db and matches models to tables
-  console.log('db synced!');
+  console.log("db synced!");
 
   // Creating Users
   const users = await Promise.all([
-    User.create({ username: 'cody', password: '123' }),
-    User.create({ username: 'murphy', password: '345' }),
+    User.create({ username: "cody", password: "123" }),
+    User.create({ username: "murphy", password: "345" }),
   ]);
   // Ccreatinf Product
   const products = await Promise.all([
     Product.create({
-      name: 'Taco',
-      imageURL: 'mexcian food pictures',
+      name: "Taco",
+      imageURL: "mexcian food pictures",
       description:
-        'crispy or soft corn or wheat tortilla that is folded or rolled and stuffed with a mixture',
+        "crispy or soft corn or wheat tortilla that is folded or rolled and stuffed with a mixture",
       price: 13,
       calories: 500,
     }),
     Product.create({
-      name: 'Ramen',
-      imageURL: ' Japanese food pictures',
+      name: "Ramen",
+      imageURL: " Japanese food pictures",
       description:
-        'fish-based broth, often flavored with soy sauce or miso, and uses toppings such as sliced pork ',
+        "fish-based broth, often flavored with soy sauce or miso, and uses toppings such as sliced pork ",
       price: 14,
       calories: 750,
     }),
     Product.create({
-      name: 'Kebab',
-      imageURL: 'Turkish food pictures',
-      description: 'Tender Lamb skewer, served with Bulgur and Fries',
+      name: "Kebab",
+      imageURL: "Turkish food pictures",
+      description: "Tender Lamb skewer, served with Bulgur and Fries",
       price: 11,
       calories: 800,
     }),
     Product.create({
-      name: 'Chicken Curry',
-      imageURL: 'Indian food pictures',
-      description: 'Grilled chiken,served with Rice and Salad',
+      name: "Chicken Curry",
+      imageURL: "Indian food pictures",
+      description: "Grilled chiken,served with Rice and Salad",
       price: 11,
       calories: 800,
     }),
   ]);
 
-  const OrderOne = Order.create({
-    userId: 1,
-    productId: 1,
-    isFulfilled: true,
-  });
+  //create order for user 1
+  const orders = await Promise.all([
+    Order.create({
+      userId: 1,
+      isFulfilled: false,
+    }),
+  ]);
 
-  await users[0].addProduct(products[0]);
-  // await OrderOne.addProduct(pro);
+  //create orderProduct table for order 1
+  const orderProduct = await Promise.all([
+    OrderProduct.create({
+      orderId: 1,
+      productId: 1,
+      quantity: 4,
+    }),
+  ]);
 
   console.log(`seeded ${users.length} users`);
   console.log(`seeded successfully`);
@@ -78,16 +87,16 @@ async function seed() {
  The `seed` function is concerned only with modifying the database.
 */
 async function runSeed() {
-  console.log('seeding...');
+  console.log("seeding...");
   try {
     await seed();
   } catch (err) {
     console.error(err);
     process.exitCode = 1;
   } finally {
-    console.log('closing db connection');
+    console.log("closing db connection");
     await db.close();
-    console.log('db connection closed');
+    console.log("db connection closed");
   }
 }
 

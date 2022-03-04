@@ -48,7 +48,6 @@ const AllProducts = () => {
           })}
     </div>
   );
-
 };
 
 export default AllProducts;

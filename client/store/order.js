@@ -1,7 +1,7 @@
-import axios from 'axios';
+import axios from "axios";
 // action type
-const ADD_CART = 'ADD_CART';
-const FETCH_CART = 'FETCH_CART';
+const ADD_CART = "ADD_CART";
+const FETCH_CART = "FETCH_CART";
 
 // action creator
 const _AddCart = (cart) => {
@@ -23,7 +23,7 @@ const _fetchCart = (cart) => {
 export const AddCart = (userId) => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.post('/api/cart', userId);
+      const { data } = await axios.post("/api/cart", userId);
       dispatch(_AddCart(data));
     } catch (error) {
       console.log(error);
@@ -35,7 +35,7 @@ export const fetchCart = (userId) => {
   return async (dispatch) => {
     try {
       const { data } = await axios.get(`/api/cart/${userId}`);
-      dispatch(_AddCart(data));
+      dispatch(_fetchCart(data));
     } catch (error) {
       console.log(error);
     }
