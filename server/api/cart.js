@@ -2,6 +2,7 @@ const router = require("express").Router();
 const {
   models: { Order },
 } = require("../db");
+const Product = require("../db/models/Product");
 module.exports = router;
 
 // '/cart/:userId' getting the user's current cart that isn't fulfilled
@@ -11,6 +12,9 @@ router.get("/:userId", async (req, res, next) => {
       where: {
         userId: req.params.userId,
         isFulfilled: false,
+      },
+      include: {
+        model: Product,
       },
     });
     res.json(cart);

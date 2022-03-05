@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { setProducts } from "../../store/products";
 import { connect, useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { fetchCart } from "../../store/order";
 
 const AllProducts = () => {
   const dispatch = useDispatch();

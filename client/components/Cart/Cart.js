@@ -1,30 +1,40 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { me } from "../../store";
 import { fetchCart } from "../../store/order";
+import { fetchCartItems } from "../../store/orderProducts";
 
 const Cart = () => {
   const user = useSelector((state) => state.auth);
-  console.log(`User is here: ${typeof user.id}`);
 
-  const cart = useSelector((state) => state.cart);
+  const order = useSelector((state) => state.order);
+  const orderProducts = useSelector((state) => state.orderProducts);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchCart(user.id));
+    // dispatch(fetchCart(user.id));
   }, []);
-
+  console.log(user.id);
   // const handleQuantity = (e, orderId) => {
   //   let quantity = e.target.value;
-  //   dispatch(increaseQuantity(orderId, quantity));
+  //   dispatch();
   // };
 
-  console.log(cart);
+  console.log(`Here is our cart ${order.id}`);
+
   return (
     <div>
       <header>Your Cart:</header>
+      <div>
+        {order.products.map((product) => {
+          return (
+            <div key={product.id}>
+              <p>{product.name}</p>
+              <p>{product.orderProduct.quantity}</p>
+            </div>
+          );
+        })}
+      </div>
       {/* <p></p>
       <div>
         {cart.length > 0

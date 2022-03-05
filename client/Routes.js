@@ -24,7 +24,8 @@ const Routes = () => {
     <div>
       {isLoggedIn ? (
         <Switch>
-          <Route path="/login" exact component={AllProducts} />
+          <Route path="/login" exact component={Home} />
+          <Route exact path="/home" exact component={Home} />
           <Route exact path="/about" component={About} />
           <Route exact path="/products" component={AllProducts} />
           <Route exact path="/products/:id" component={SingleProduct} />
