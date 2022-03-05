@@ -24,27 +24,12 @@ const AllProducts = () => {
         : products.map((product) => {
             return (
               <div key={product.id}>
-                <p>
-                  <Link to={`/products/${product.id}`}>
-                    Food Name:
-                    {product.name}
-                  </Link>
-                  &nbsp;&nbsp;&nbsp;
-                </p>
-                <p>
+                <br />
+                <Link to={`/products/${product.id}`}>
                   <img src={product.imageURL} />
-                </p>
-                <p>
-                  <u>Food description: </u>
-                  {product.description}
-                </p>
-                <p>
-                  <u>Food Price: </u> {product.price}
-                </p>
-                <p>
-                  <u>Product calories: </u>
-                  {product.calories}
-                </p>
+                </Link>
+                <br />
+                <h3>{product.name}</h3>${product.price}
               </div>
             );
           })}
