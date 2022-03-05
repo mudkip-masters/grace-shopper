@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { me } from "../../store";
 import { fetchCart } from "../../store/order";
 import { fetchCartItems } from "../../store/orderProducts";
 
@@ -12,9 +13,14 @@ const Cart = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // dispatch(fetchCart(user.id));
+    dispatch(me());
   }, []);
-  console.log(user.id);
+
+  useEffect(() => {
+    dispatch(fetchCart(user.id));
+    console.log("user id is: ", user.id);
+  }, [user]);
+
   // const handleQuantity = (e, orderId) => {
   //   let quantity = e.target.value;
   //   dispatch();
@@ -22,19 +28,28 @@ const Cart = () => {
 
   console.log(`Here is our cart ${order.id}`);
 
+  if (!order.products) {
+    return <h1>"cart is empty"</h1>;
+  }
+
   return (
     <div>
-      <header>Your Cart:</header>
-      <div>
-        {order.products.map((product) => {
-          return (
-            <div key={product.id}>
-              <p>{product.name}</p>
-              <p>{product.orderProduct.quantity}</p>
-            </div>
-          );
-        })}
-      </div>
+      {
+        <>
+          <header>Your Cart:</header>
+          <div>
+            {order.products.map((product) => {
+              return (
+                <div key={product.id}>
+                  <p>{product.name}</p>
+                  <p>{product.orderProduct.quantity}</p>
+                </div>
+              );
+            })}
+          </div>
+        </>
+        // ))
+      }
       {/* <p></p>
       <div>
         {cart.length > 0

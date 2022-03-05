@@ -23,7 +23,7 @@ const _fetchCart = (cart) => {
 export const AddCart = (userId) => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.post("/api/cart", userId);
+      const { data } = await axios.post(`/api/users/${userId}/cart`);
       dispatch(_AddCart(data));
     } catch (error) {
       console.log(error);
@@ -34,7 +34,7 @@ export const AddCart = (userId) => {
 export const fetchCart = (userId) => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.get(`/api/cart/${userId}`);
+      const { data } = await axios.get(`/api/users/${userId}/cart`);
       dispatch(_fetchCart(data));
     } catch (error) {
       console.log(error);
