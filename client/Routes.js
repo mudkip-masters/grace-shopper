@@ -1,12 +1,12 @@
-import React, { Component, Fragment, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { withRouter, Route, Switch, Redirect } from "react-router-dom";
-import { Login, Signup } from "./components/AuthForm";
-import Home from "./components/Home";
-import { me } from "./store";
-import About from "./components/About/About";
-import AllProducts from "./components/Products/AllProducts";
-import SingleProduct from "./components/Products/SingleProduct";
+import React, { Component, Fragment, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
+import { Login, Signup } from './components/AuthForm';
+import Home from './components/Home';
+import { me } from './store';
+import About from './components/About/About';
+import AllProducts from './components/Products/AllProducts';
+import SingleProduct from './components/Products/SingleProduct';
 
 /**
  * COMPONENT
@@ -42,7 +42,6 @@ const Routes = () => {
       )}
     </div>
   );
-
 };
 
 // The `withRouter` wrapper makes sure that updates are not blocked
