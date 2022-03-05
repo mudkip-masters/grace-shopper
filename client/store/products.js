@@ -1,20 +1,20 @@
-import axios from "axios";
+import axios from 'axios';
 // action type
-const SET_PRODUCTS = "SET_PRODUCTS";
+const SET_ALL_PRODUCTS = 'SET_ALL_PRODUCTS';
 
 // action creator
-const _setProducts = (products) => {
+const setAllProducts = (products) => {
   return {
-    type: SET_PRODUCTS,
+    type: SET_ALL_PRODUCTS,
     products,
   };
 };
 // thunks creator
-export const setProducts = () => {
+export const getAllProducts = () => {
   return async (dispatch) => {
     try {
-      const { data: products } = await axios.get("/api/products");
-      dispatch(_setProducts(products));
+      const { data: allProducts } = await axios.get('/api/products');
+      dispatch(setAllProducts(allProducts));
     } catch (error) {
       console.log(error);
     }
@@ -25,8 +25,9 @@ let initialState = [];
 
 export default function productsReducer(state = initialState, action) {
   switch (action.type) {
-    case SET_PRODUCTS:
+    case SET_ALL_PRODUCTS: {
       return action.products;
+    }
     default:
       return state;
   }
