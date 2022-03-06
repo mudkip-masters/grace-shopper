@@ -2,7 +2,6 @@ const Sequelize = require('sequelize');
 const db = require('../db');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-const axios = require('axios');
 
 const SALT_ROUNDS = 5;
 
@@ -16,10 +15,9 @@ const User = db.define('user', {
     type: Sequelize.STRING,
     allowNull: false,
   },
-
-  role: {
-    type: Sequelize.ENUM('user', 'admin'),
-    defaultValue: 'user',
+  isAdmin: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false,
   },
 });
 

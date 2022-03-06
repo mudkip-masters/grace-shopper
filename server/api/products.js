@@ -27,7 +27,8 @@ router.get('/:productId', async (req, res, next) => {
 //POST product
 router.post('/', async (req, res, next) => {
   try {
-    res.status(201).send(Product.create(req.body));
+    const newProduct = await Product.create(req.body);
+    res.json(newProduct);
   } catch (err) {
     next(err);
   }
@@ -36,9 +37,14 @@ router.post('/', async (req, res, next) => {
 //DELETE productId
 router.delete('/:productId', async (req, res, next) => {
   try {
-    const product = await Product.findByPk(req.params.productId);
-    await product.destroy();
-    res.send(product);
+    const productToDelete = await Product.findByPk(req.params.productId);
+    if (!productToDelete) throw new Error(404);
+    await product.destroy({
+      where: {
+        id: req.params.productId,
+      },
+    });
+    res.json(productToDelete);
   } catch (err) {
     next(err);
   }
@@ -46,8 +52,10 @@ router.delete('/:productId', async (req, res, next) => {
 
 router.put('/:productId', async (req, res, next) => {
   try {
-    const product = await Product.findByPk(req.params.productId);
-    res.send(await product.update(req.body));
+    const productToUpdate = await Product.findByPk(req.params.productId);
+    if (!productToUpdate) throw new Error(404);
+    const updatedProduct = await productToUpdate.update(req.body);
+    res.json(updatedProduct);
   } catch (error) {
     next(error);
   }

@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 const AllProducts = () => {
-  const dispatch = useDispatch();
   const [price, setPrice] = useState('');
 
   const { products } = useSelector((state) => {
@@ -13,6 +12,7 @@ const AllProducts = () => {
     };
   });
 
+  const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllProducts());
   }, []);
