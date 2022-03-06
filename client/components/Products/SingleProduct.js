@@ -26,9 +26,10 @@ const SingleProduct = (props) => {
 
   return (
     <div>
+      {/* change the width and height in SCSS later */}
+      <img src={product.imageURL} width="300" height="300" />
       <ul>
         <li>{product.name}</li>
-        <li>{product.imageURL}</li>
         <li>{product.description}</li>
         <li>{product.price}</li>
         <li>{product.calories}</li>

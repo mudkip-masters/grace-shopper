@@ -31,7 +31,7 @@ const AllProducts = () => {
                   &nbsp;&nbsp;&nbsp;
                 </p>
                 <p>
-                  <img src={product.imageURL} />
+                  <img src={product.imageURL} width="300" height="300" />
                 </p>
                 <p>
                   <u>Food description: </u>
