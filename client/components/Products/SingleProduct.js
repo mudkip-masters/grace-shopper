@@ -1,16 +1,8 @@
-<<<<<<< HEAD
 import React, { useEffect, useState } from 'react';
 import { fetchSingleProduct } from '../../store/SingleProduct';
 import { useDispatch, useSelector } from 'react-redux';
 import { me } from '../../store';
 import { addCart } from '../../store/order';
-=======
-import React, { useEffect, useState } from "react";
-import { fetchSingleProduct } from "../../store/SingleProduct";
-import { useDispatch, useSelector } from "react-redux";
-import { me } from "../../store";
-import { addCart } from "../../store/order";
->>>>>>> 78ae052aafe01db3c2d3d43e8f1f3a2f1a489554
 
 const SingleProduct = (props) => {
   const dispatch = useDispatch();

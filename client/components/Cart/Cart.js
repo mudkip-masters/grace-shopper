@@ -1,16 +1,8 @@
-<<<<<<< HEAD
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { me } from '../../store';
 import { fetchCart } from '../../store/order';
 import { fetchCartItems } from '../../store/orderProducts';
-=======
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { me } from "../../store";
-import { fetchCart } from "../../store/order";
-import { fetchCartItems } from "../../store/orderProducts";
->>>>>>> 78ae052aafe01db3c2d3d43e8f1f3a2f1a489554
 
 const Cart = () => {
   const user = useSelector((state) => state.auth);

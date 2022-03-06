@@ -1,18 +1,11 @@
 // const { OrderProduct } = require("../db");
-<<<<<<< HEAD
 const OrderProduct = require('../db/models/OrderProduct');
 // const Product = require("../db/models/Product");
 
 const router = require('express').Router();
-=======
-const OrderProduct = require("../db/models/OrderProduct");
-// const Product = require("../db/models/Product");
-
-const router = require("express").Router();
->>>>>>> 78ae052aafe01db3c2d3d43e8f1f3a2f1a489554
 
 // getting the user's current cart items that match the order Id
-router.get("/:orderId", async (req, res, next) => {
+router.get('/:orderId', async (req, res, next) => {
   try {
     const cart = await OrderProduct.findOne({
       where: {
@@ -31,7 +24,7 @@ router.get("/:orderId", async (req, res, next) => {
   }
 });
 
-router.post("/", async (req, res, next) => {
+router.post('/', async (req, res, next) => {
   try {
     const cartItem = await OrderProduct.create(req.body);
     res.json(cartItem);
