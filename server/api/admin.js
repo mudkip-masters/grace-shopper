@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const Sequelize = require('sequelize');
+const { isAdmin, isUser } = require('./securityCheck');
 const {
   models: { Product },
 } = require('../db');
