@@ -3,6 +3,10 @@
   "version": "2.0.0",
   "description": "Mudkip Masters Grace Shopper",
   "main": "index.js",
+  "engines": {
+    "npm": "8.1.2",
+    "node": "16.13.2"
+  },
   "scripts": {
     "build": "webpack",
     "build:dev": "npm run build -- --watch --mode=development",
