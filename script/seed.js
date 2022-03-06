@@ -23,7 +23,8 @@ async function seed() {
   const products = await Promise.all([
     Product.create({
       name: 'Taco',
-      imageURL: 'mexcian food pictures',
+      imageURL:
+        'https://images.pexels.com/photos/7613563/pexels-photo-7613563.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
       description:
         'crispy or soft corn or wheat tortilla that is folded or rolled and stuffed with a mixture',
       price: 13,
@@ -31,7 +32,8 @@ async function seed() {
     }),
     Product.create({
       name: 'Ramen',
-      imageURL: ' Japanese food pictures',
+      imageURL:
+        ' https://images.pexels.com/photos/2591594/pexels-photo-2591594.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
       description:
         'fish-based broth, often flavored with soy sauce or miso, and uses toppings such as sliced pork ',
       price: 14,
@@ -39,14 +41,16 @@ async function seed() {
     }),
     Product.create({
       name: 'Kebab',
-      imageURL: 'Turkish food pictures',
+      imageURL:
+        'https://images.pexels.com/photos/5866825/pexels-photo-5866825.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
       description: 'Tender Lamb skewer, served with Bulgur and Fries',
       price: 11,
       calories: 800,
     }),
     Product.create({
       name: 'Chicken Curry',
-      imageURL: 'Indian food pictures',
+      imageURL:
+        'https://images.pexels.com/photos/9609869/pexels-photo-9609869.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
       description: 'Grilled chiken,served with Rice and Salad',
       price: 11,
       calories: 800,

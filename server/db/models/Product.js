@@ -13,7 +13,7 @@ const Product = db.define('product', {
   imageURL: {
     type: Sequelize.STRING,
     defaultValue:
-      'https://www.eatthis.com/wp-content/uploads/sites/4/2020/12/unhealthiest-foods-planet.jpg?quality=82&strip=1&resize=640%2C360',
+      'https://images.pexels.com/photos/2097090/pexels-photo-2097090.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
   },
   description: {
     type: Sequelize.STRING,
