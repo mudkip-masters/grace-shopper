@@ -23,13 +23,14 @@ const AllProducts = () => {
         ? 'No food'
         : products.map((product) => {
             return (
-              <div key={product.id}>
+              <div key={product.id} className="allProductCards">
                 <br />
                 <Link to={`/products/${product.id}`}>
-                  <img src={product.imageURL} />
+                  <img src={product.imageURL} style={{ width: '200px' }} />
                 </Link>
                 <br />
-                <h3>{product.name}</h3>${product.price}
+                <h3 className="singleDescription">{product.name}</h3>$
+                {product.price}
               </div>
             );
           })}
