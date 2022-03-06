@@ -1,16 +1,20 @@
-const router = require('express').Router();
+const router = require("express").Router();
 const {
   models: { Order },
-} = require('../db');
+} = require("../db");
+const Product = require("../db/models/Product");
 module.exports = router;
 
-// getting the user's current cart that isn't fulfilled
-router.get('/:userId', async (req, res, next) => {
+// '/cart/:userId' getting the user's current cart that isn't fulfilled
+router.get("/:userId", async (req, res, next) => {
   try {
     const cart = await Order.findOne({
       where: {
         userId: req.params.userId,
         isFulfilled: false,
+      },
+      include: {
+        model: Product,
       },
     });
     res.json(cart);
@@ -20,7 +24,7 @@ router.get('/:userId', async (req, res, next) => {
 });
 
 // posting a card to order models
-router.post('/', async (req, res, next) => {
+router.post("/", async (req, res, next) => {
   try {
     const cart = await Order.create(req.body.userId);
     res.json(cart);
