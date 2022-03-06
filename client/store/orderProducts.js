@@ -16,6 +16,7 @@ const _fetchCartItems = (cart) => {
     cart,
   };
 };
+
 // thunks creator
 export const AddCartItem = (orderId, productId, quantity) => {
   return async (dispatch) => {

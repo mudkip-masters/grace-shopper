@@ -1,11 +1,12 @@
-import axios from 'axios';
+import Axios from 'axios';
 //action creator
 const SET_SINGLE_PRODUCT = 'SET_SINGLE_PRODUCT';
 
 // action creator
-const setSingleProduct = (product) => {
+export const setSingleProduct = (product) => {
   return {
     type: SET_SINGLE_PRODUCT,
+
     product,
   };
 };
@@ -14,23 +15,20 @@ const setSingleProduct = (product) => {
 export const fetchSingleProduct = (id) => {
   return async (dispatch) => {
     try {
-      const { data: singleProduct } = await axios.get(`/api/products/${id}`);
-      dispatch(setSingleProduct(singleProduct));
+      const { data } = await Axios.get(`/api/products/${id}`);
+      dispatch(setSingleProduct(data));
     } catch (err) {
       console.log(err);
     }
   };
 };
 
-const initalState = {};
-
-export default function productReducer(state = initalState, action) {
+export default function productReducer(state = {}, action) {
   switch (action.type) {
-    case SET_SINGLE_PRODUCT: {
-      return action.product;
-    }
-    default: {
+    case SET_SINGLE_PRODUCT:
+      console.log('here is action', action);
+      return { ...action.product };
+    default:
       return state;
-    }
   }
 }

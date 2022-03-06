@@ -43,7 +43,7 @@ a:visited {
 }
 
 body {
-  background-color: #222222;
+  background-color: #6e6e6e;
 }
 
 body {
@@ -66,14 +66,4 @@ nav a {
 form div {
   margin: 1em;
   display: inline-block;
-}
-.allproductCards {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-evenly;
-  flex-wrap: wrap;
-}
-.singleDescription {
-  width: 230px;
 }

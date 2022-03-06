@@ -1,20 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { getAllProducts } from '../../store/products';
-import { useDispatch, useSelector } from 'react-redux';
+import { setProducts } from '../../store/products';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { fetchCart } from '../../store/order';
 
 const AllProducts = () => {
-  const [price, setPrice] = useState('');
-
-  const { products } = useSelector((state) => {
-    return {
-      products: state.products,
-    };
-  });
-
   const dispatch = useDispatch();
+
+  const products =
+    useSelector((state) => {
+      return state.products;
+    }) || [];
+
   useEffect(() => {
-    dispatch(getAllProducts());
+    dispatch(setProducts());
   }, []);
 
   return (
@@ -23,14 +22,28 @@ const AllProducts = () => {
         ? 'No food'
         : products.map((product) => {
             return (
-              <div key={product.id} className="allProductCards">
-                <br />
-                <Link to={`/products/${product.id}`}>
-                  <img src={product.imageURL} style={{ width: '200px' }} />
-                </Link>
-                <br />
-                <h3 className="singleDescription">{product.name}</h3>$
-                {product.price}
+              <div key={product.id}>
+                <p>
+                  <Link to={`/products/${product.id}`}>
+                    Food Name:
+                    {product.name}
+                  </Link>
+                  &nbsp;&nbsp;&nbsp;
+                </p>
+                <p>
+                  <img src={product.imageURL} width="300" height="300" />
+                </p>
+                <p>
+                  <u>Food description: </u>
+                  {product.description}
+                </p>
+                <p>
+                  <u>Food Price: </u> {product.price}
+                </p>
+                <p>
+                  <u>Product calories: </u>
+                  {product.calories}
+                </p>
               </div>
             );
           })}

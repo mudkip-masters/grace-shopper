@@ -1,6 +1,6 @@
-import React from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { authenticate } from "../store";
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { authenticate } from '../store';
 
 /**
  * COMPONENT
