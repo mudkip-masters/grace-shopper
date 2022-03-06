@@ -3,25 +3,25 @@ import { fetchSingleProduct } from '../../store/SingleProduct';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
-const SingleProduct = () => {
-  const { singleProduct } = useSelector((state) => {
+const SingleProduct = (props) => {
+  const singleProduct = useSelector((state) => {
     return {
-      singleProduct: state.singleProduct,
+      singleProduct: state.product,
     };
   });
 
   const [addedToCart, setAddedToCart] = useState(false);
-  const [customerData, setCustomerData] = useState(() => {
-    const localStorageInfo = JSON.parse(localStorage.getItem('data'));
-    return localStorageInfo || [];
+  const [customerData, setCustomerData] = useState((state) => {
+    // const localStorageInfo = JSON.parse(localStorage.getItem('data'));
+    // return localStorageInfo || [];
+    return state;
   });
   const [purchaseQty, setPurchaseQty] = useState(0);
 
   const dispatch = useDispatch();
   const { productId } = useParams();
-
   useEffect(() => {
-    dispatch(fetchSingleProduct(productId));
+    dispatch(fetchSingleProduct(props.match.params.id));
   }, []);
 
   useEffect(() => {
@@ -29,9 +29,9 @@ const SingleProduct = () => {
   }, [purchaseQty]);
 
   // source for localStorge 'https://www.js-tutorials.com/react-js/how-to-use-localstorage-with-reactjs/#:~:text=The%20localStorage%20is%20used%20to%20store%20temporary%20data,value%20pairs%20in%20the%20browser%20for%20later%20use.'
-  useEffect(() => {
-    localStorage.setItem('data', JSON.stringify(setCustomerData));
-  }, [setCustomerData]);
+  // useEffect(() => {
+  //   localStorage.setItem('data', JSON.stringify(setCustomerData));
+  // }, [setCustomerData]);
 
   const handleSubmit = (ev) => {
     ev.preventDefault();
