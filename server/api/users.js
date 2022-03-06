@@ -31,7 +31,11 @@ router.get("/:userId", async (req, res, next) => {
   }
 });
 
-//GET /api/users/:userId/order
+//GET /api/users/:userId/order/
+//find all for a user's fulfilled orders
+
+//GET /api/users/:userId/order/:orderId
+//search for a user's fulfilled orders
 
 //GET /api/users/:userId/cart, load an unfilled order (cart) based on the user's orders
 router.get("/:userId/cart", async (req, res, next) => {
@@ -55,21 +59,33 @@ router.get("/:userId/cart", async (req, res, next) => {
 
 router.post("/:userId/cart", async (req, res, next) => {
   try {
+    //find a cart if it already exists, OR create a new cart if there is no cart for user/guest
     const cart = await Order.findOrCreate({
       where: {
         userId: req.params.userId,
         isFulfilled: false,
       },
       include: {
-        model: OrderProduct,
+        model: Product,
       },
     });
 
     req.body.orderId = cart[0].id;
-    const newItem = await OrderProduct.create(req.body, {
-      include: Product,
+    console.log(req.body.orderId);
+
+    const newItem = await OrderProduct.create({
+      orderId: req.body.orderId,
+      productId: req.body.productId,
+      quantity: req.body.quantity,
     });
-    res.json(newItem);
+
+    // OrderProduct.create({
+    //   orderId: 2,
+    //   productId: 3,
+    //   quantity: 2,
+    // }),
+
+    res.json(cart);
   } catch (err) {
     next(err);
   }

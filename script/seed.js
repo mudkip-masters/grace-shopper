@@ -54,20 +54,44 @@ async function seed() {
     }),
   ]);
 
-  //create order for user 1
   const orders = await Promise.all([
+    //Order 1 for murphy
     Order.create({
       userId: 1,
       isFulfilled: false,
     }),
+
+    //Order 2 for cole
+    Order.create({
+      userId: 2,
+      isFulfilled: false,
+    }),
   ]);
 
-  //create orderProduct table for order 1
   const orderProduct = await Promise.all([
+    //add 4 tacos to murphy's order 1
     OrderProduct.create({
       orderId: 1,
       productId: 1,
       quantity: 4,
+    }),
+    // //add 3 chicken curry to murphy's order 1
+    // OrderProduct.create({
+    //   orderId: 1,
+    //   productId: 4,
+    //   quantity: 3,
+    // }),
+    //add 10 ramen to cole's order 2
+    OrderProduct.create({
+      orderId: 2,
+      productId: 2,
+      quantity: 10,
+    }),
+    //add 2 kebabs to cole's order 2
+    OrderProduct.create({
+      orderId: 2,
+      productId: 3,
+      quantity: 2,
     }),
   ]);
 

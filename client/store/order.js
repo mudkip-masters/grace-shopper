@@ -4,7 +4,7 @@ const ADD_CART = "ADD_CART";
 const FETCH_CART = "FETCH_CART";
 
 // action creator
-const _AddCart = (cart) => {
+const _addCart = (cart) => {
   return {
     type: ADD_CART,
     cart,
@@ -19,17 +19,21 @@ const _fetchCart = (cart) => {
 };
 // thunks creator
 
-//creating a cart for a user
-export const AddCart = (userId) => {
+//add to cart, find cart if exists, or create
+export const addCart = (userId, productId, quantity) => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.post(`/api/users/${userId}/cart`);
-      dispatch(_AddCart(data));
+      const { data } = await axios.post(`/api/users/${userId}/cart`, {
+        productId,
+        quantity,
+      });
+      dispatch(_addCart(data));
     } catch (error) {
       console.log(error);
     }
   };
 };
+
 //finding a users cart based on querying the orders model for an order that has their id
 export const fetchCart = (userId) => {
   return async (dispatch) => {

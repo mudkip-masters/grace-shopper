@@ -18,7 +18,7 @@ const Cart = () => {
 
   useEffect(() => {
     dispatch(fetchCart(user.id));
-    console.log("user id is: ", user.id);
+    // console.log("user id is: ", user.id);
   }, [user]);
 
   // const handleQuantity = (e, orderId) => {
