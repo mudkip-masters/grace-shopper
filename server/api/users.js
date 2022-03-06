@@ -5,9 +5,10 @@ const {
 const Order = require('../db/models/Order');
 const OrderProduct = require('../db/models/OrderProduct');
 const Product = require('../db/models/Product');
+const { isUser, isAdmin } = require('./securityCheck');
 module.exports = router;
 
-router.get('/', async (req, res, next) => {
+router.get('/', isUser, isAdmin, async (req, res, next) => {
   try {
     const users = await User.findAll({
       // explicitly select only the id and username fields - even though
