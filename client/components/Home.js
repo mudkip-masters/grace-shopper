@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCart } from '../store/order';
+=======
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCart } from "../store/order";
+>>>>>>> 78ae052aafe01db3c2d3d43e8f1f3a2f1a489554
 
 /**
  * COMPONENT

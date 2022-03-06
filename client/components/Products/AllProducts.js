@@ -1,8 +1,16 @@
+<<<<<<< HEAD
 import React, { useEffect, useState } from 'react';
 import { setProducts } from '../../store/products';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchCart } from '../../store/order';
+=======
+import React, { useEffect, useState } from "react";
+import { setProducts } from "../../store/products";
+import { connect, useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { fetchCart } from "../../store/order";
+>>>>>>> 78ae052aafe01db3c2d3d43e8f1f3a2f1a489554
 
 const AllProducts = () => {
   const dispatch = useDispatch();

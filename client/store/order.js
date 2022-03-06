@@ -1,7 +1,7 @@
-import axios from 'axios';
+import axios from "axios";
 // action type
-const ADD_CART = 'ADD_CART';
-const FETCH_CART = 'FETCH_CART';
+const ADD_CART = "ADD_CART";
+const FETCH_CART = "FETCH_CART";
 
 // action creator
 const _addCart = (cart) => {

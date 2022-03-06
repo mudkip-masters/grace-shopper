@@ -1,7 +1,7 @@
-import axios from 'axios';
+import axios from "axios";
 // action type
-const ADD_CART_ITEM = 'ADD_CART_ITEM';
-const FETCH_CART_ITEMS = 'FETCH_CART_ITEMS';
+const ADD_CART_ITEM = "ADD_CART_ITEM";
+const FETCH_CART_ITEMS = "FETCH_CART_ITEMS";
 // action creator
 const _AddCartItem = (product) => {
   return {
@@ -21,7 +21,7 @@ const _fetchCartItems = (cart) => {
 export const AddCartItem = (orderId, productId, quantity) => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.post('/api/OrderProduct', {
+      const { data } = await axios.post("/api/OrderProduct", {
         orderId,
         productId,
         quantity,

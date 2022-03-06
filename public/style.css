@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap");
 
 .about-us-container {
   display: flex;
@@ -17,7 +17,7 @@
 
 .about-card > h2 {
   text-align: center;
-  font-family: 'Permanent Marker', cursive;
+  font-family: "Permanent Marker", cursive;
 }
 
 .image-div > img {
