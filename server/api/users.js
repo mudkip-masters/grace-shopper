@@ -113,7 +113,7 @@ router.put("/:userId/cart", async (req, res, next) => {
     // console.log("singleProduct", singleOrderProduct);
     let currentQuantity = singleOrderProduct.quantity;
     if (type === "increase") {
-      currentQuantity++;
+      currentQuantity = currentQuantity + 1 >= 10 ? 10 : currentQuantity + 1;
     }
     if (type === "decrease") {
       currentQuantity = currentQuantity - 1 <= 1 ? 1 : currentQuantity - 1;

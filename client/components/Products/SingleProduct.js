@@ -47,6 +47,8 @@ const SingleProduct = (props) => {
           type="number"
           value={state}
           onChange={handleChange}
+          min="1"
+          max="10"
         />
       </form>
       <button onClick={() => handleClick()}>Add To Cart</button>
