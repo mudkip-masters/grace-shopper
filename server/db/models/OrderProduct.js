@@ -21,7 +21,7 @@ const OrderProduct = db.define("orderProduct", {
 
   quantity: {
     type: Sequelize.INTEGER,
-    defaultValue: 0,
+    defaultValue: 1,
   },
 });
 
