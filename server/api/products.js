@@ -24,6 +24,8 @@ router.get('/:productId', async (req, res, next) => {
   }
 });
 
+// o: all routes here should only be allowed by admins
+
 //POST product
 router.post('/', async (req, res, next) => {
   try {
@@ -36,6 +38,7 @@ router.post('/', async (req, res, next) => {
 //DELETE productId
 router.delete('/:productId', async (req, res, next) => {
   try {
+    // o: make sure to check for when you can't find the resource
     const product = await Product.findByPk(req.params.productId);
     await product.destroy();
     res.send(product);
@@ -46,6 +49,7 @@ router.delete('/:productId', async (req, res, next) => {
 
 router.put('/:productId', async (req, res, next) => {
   try {
+    // o: make sure to check for when you can't find the resource
     const product = await Product.findByPk(req.params.productId);
     res.send(await product.update(req.body));
   } catch (error) {

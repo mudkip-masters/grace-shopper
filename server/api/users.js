@@ -7,6 +7,7 @@ const OrderProduct = require("../db/models/OrderProduct");
 const Product = require("../db/models/Product");
 module.exports = router;
 
+// o: I should not be able to view all users if not an admin
 router.get("/", async (req, res, next) => {
   try {
     const users = await User.findAll({
@@ -37,12 +38,20 @@ router.get("/:userId", async (req, res, next) => {
 //GET /api/users/:userId/order/:orderId
 //search for a user's fulfilled orders
 
+// o: reference for middleware
+//  https://expressjs.com/en/guide/using-middleware.html
+// function isLoggedIn(req, res, next) {
+//   req.user = User.findOne(req.authorizationId)
+//   next()
+// }
+
 //GET /api/users/:userId/cart, load an unfilled order (cart) based on the user's orders
+// o: you do not need to pass in the userId because you can grab it from req.user
 router.get("/:userId/cart", async (req, res, next) => {
   try {
     const cart = await Order.findOne({
       where: {
-        userId: req.params.userId,
+        userId: req.user.id,
         isFulfilled: false,
       },
       include: {
@@ -56,6 +65,7 @@ router.get("/:userId/cart", async (req, res, next) => {
 });
 
 //POST /api/users/:userId/cart (CREATE A NEW CART)
+// o: you do not need to pass in the userId because you can grab it from req.user
 router.post("/:userId/cart", async (req, res, next) => {
   try {
     const cart = await Order.create({
@@ -70,6 +80,8 @@ router.post("/:userId/cart", async (req, res, next) => {
 });
 
 //POST /api/users/:userId/cart (FIND OR CREATE)
+// o: you do not need to pass in the userId because you can grab it from req.user
+// o: this should probably be a put
 router.post("/:userId/addToCart", async (req, res, next) => {
   try {
     //find a cart if it already exists, OR create a new cart if there is no cart for user/guest
@@ -99,6 +111,7 @@ router.post("/:userId/addToCart", async (req, res, next) => {
 });
 
 //PUT /api/users/:userId/cart request update quantites
+// o: you do not need to pass in the userId because you can grab it from req.user
 router.put("/:userId/cart", async (req, res, next) => {
   try {
     const orderId = req.body.orderId;
@@ -126,6 +139,7 @@ router.put("/:userId/cart", async (req, res, next) => {
 });
 
 //PUT /api/users/:userId/order, set a cart to isFulfilled: true
+// o: you do not need to pass in the userId because you can grab it from req.user
 router.put("/:userId/order", async (req, res, next) => {
   try {
     const cart = await Order.findOne({
@@ -141,6 +155,8 @@ router.put("/:userId/order", async (req, res, next) => {
 });
 
 //DELETE /api/users/:userId/cart/:orderId/:productId delete a orderProduct row (delete an item from cart)
+// o: you do not need to pass in the userId because you can grab it from req.user
+// o: you also don't need to pass in the orderId since you can get it from the association
 router.delete("/:userId/cart/:orderId/:productId", async (req, res, next) => {
   try {
     const orderId = req.params.orderId;

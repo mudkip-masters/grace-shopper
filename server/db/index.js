@@ -8,6 +8,7 @@ const OrderProduct = require("./models/OrderProduct");
 
 //associations could go here!
 
+// o: this set of associations is not correct
 User.belongsToMany(Product, { through: Order });
 Product.belongsToMany(User, { through: Order });
 
