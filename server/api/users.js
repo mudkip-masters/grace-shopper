@@ -55,9 +55,22 @@ router.get("/:userId/cart", async (req, res, next) => {
   }
 });
 
-//POST /api/users/:userId/cart (FIND OR CREATE)
-
+//POST /api/users/:userId/cart (CREATE A NEW CART)
 router.post("/:userId/cart", async (req, res, next) => {
+  try {
+    const cart = await Order.create({
+      userId: req.params.userId,
+      isFulfilled: false,
+    });
+
+    res.json(cart);
+  } catch (err) {
+    next(err);
+  }
+});
+
+//POST /api/users/:userId/cart (FIND OR CREATE)
+router.post("/:userId/addToCart", async (req, res, next) => {
   try {
     //find a cart if it already exists, OR create a new cart if there is no cart for user/guest
     const cart = await Order.findOrCreate({
@@ -79,14 +92,68 @@ router.post("/:userId/cart", async (req, res, next) => {
       quantity: req.body.quantity,
     });
 
-    // OrderProduct.create({
-    //   orderId: 2,
-    //   productId: 3,
-    //   quantity: 2,
-    // }),
-
     res.json(cart);
   } catch (err) {
     next(err);
+  }
+});
+
+//PUT /api/users/:userId/cart request update quantites
+router.put("/:userId/cart", async (req, res, next) => {
+  try {
+    const orderId = req.body.orderId;
+    const productId = req.body.productId;
+    const type = req.body.type;
+    const singleOrderProduct = await OrderProduct.findOne({
+      where: {
+        orderId,
+        productId,
+      },
+    });
+    // console.log("singleProduct", singleOrderProduct);
+    let currentQuantity = singleOrderProduct.quantity;
+    if (type === "increase") {
+      currentQuantity++;
+    }
+    if (type === "decrease") {
+      currentQuantity = currentQuantity - 1 <= 1 ? 1 : currentQuantity - 1;
+    }
+    console.log(req.body.quantity);
+    res.send(await singleOrderProduct.update({ quantity: currentQuantity }));
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+//PUT /api/users/:userId/order, set a cart to isFulfilled: true
+router.put("/:userId/order", async (req, res, next) => {
+  try {
+    const cart = await Order.findOne({
+      where: {
+        userId: req.params.userId,
+        isFulfilled: false,
+      },
+    });
+    await cart.update({ isFulfilled: true });
+  } catch (err) {
+    next(err);
+  }
+});
+
+//DELETE /api/users/:userId/cart/:orderId/:productId delete a orderProduct row (delete an item from cart)
+router.delete("/:userId/cart/:orderId/:productId", async (req, res, next) => {
+  try {
+    const orderId = req.params.orderId;
+    const productId = req.params.productId;
+    const singleOrderProduct = await OrderProduct.findOne({
+      where: {
+        orderId,
+        productId,
+      },
+    });
+    await singleOrderProduct.destroy();
+    res.send(singleOrderProduct);
+  } catch (err) {
+    console.log(err);
   }
 });

@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { me } from "../../store";
-import { fetchCart } from "../../store/order";
-import { fetchCartItems } from "../../store/orderProducts";
+import {
+  addCart,
+  decreaseQuantity,
+  fetchCart,
+  fulfillCart,
+  increaseQuantity,
+  removeCart,
+} from "../../store/order";
 
 const Cart = () => {
   const user = useSelector((state) => state.auth);
 
   const order = useSelector((state) => state.order);
-  const orderProducts = useSelector((state) => state.orderProducts);
 
   const dispatch = useDispatch();
 
@@ -18,13 +23,22 @@ const Cart = () => {
 
   useEffect(() => {
     dispatch(fetchCart(user.id));
-    // console.log("user id is: ", user.id);
   }, [user]);
 
-  // const handleQuantity = (e, orderId) => {
-  //   let quantity = e.target.value;
-  //   dispatch();
-  // };
+  const handleClick = () => {
+    dispatch(fulfillCart(user.id));
+    dispatch(addCart(user.id));
+  };
+
+  const handleIncreaseQuantity = (productId, orderId) => {
+    dispatch(increaseQuantity(productId, user.id, orderId));
+  };
+  const handleDecreaseQuantity = (productId, orderId) => {
+    dispatch(decreaseQuantity(productId, user.id, orderId));
+  };
+  const handleRemove = (productId, orderId) => {
+    dispatch(removeCart(productId, user.id, orderId));
+  };
 
   console.log(`Here is our cart ${order.id}`);
 
@@ -42,42 +56,34 @@ const Cart = () => {
               return (
                 <div key={product.id}>
                   <p>{product.name}</p>
-                  <p>{product.orderProduct.quantity}</p>
+                  <p>
+                    <button
+                      onClick={() =>
+                        handleIncreaseQuantity(product.id, order.id)
+                      }
+                    >
+                      +
+                    </button>
+                    {product.orderProduct.quantity}
+                    <button
+                      onClick={() =>
+                        handleDecreaseQuantity(product.id, order.id)
+                      }
+                    >
+                      -
+                    </button>
+                    <button onClick={() => handleRemove(product.id, order.id)}>
+                      Delete
+                    </button>
+                  </p>
                 </div>
               );
             })}
           </div>
         </>
-        // ))
       }
-      {/* <p></p>
-      <div>
-        {cart.length > 0
-          ? cart.map((order) => {
-              return (
-                <ul key={order.id}>
-                  <li>Order Name: {order.name} </li>
-                  <li>
-                    Order Quantity :
-                    <input
-                      type={"number"}
-                      value={order.qty}
-                      min="0"
-                      onChange={(e) => handleQuantity(e, order.id)}
-                    />
-                  </li>
-                  <li>Order Price : {order.price} </li>
-                </ul>
-              );
-            })
-          : "Your card is empty"}
-      </div>
-      Total Price:
-      {cart.reduce((previous, current) => {
-        return (previous += current.price);
-      }, 0)}
-      <p></p>
-      <button>Check Out</button> */}
+
+      <button onClick={handleClick}>CHECK OUT</button>
     </div>
   );
 };
