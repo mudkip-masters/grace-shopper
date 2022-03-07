@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { me } from '../../store';
 import { fetchCart } from '../../store/order';
 import { fetchCartItems } from '../../store/orderProducts';
-
 const Cart = () => {
   const user = useSelector((state) => state.auth);
 
