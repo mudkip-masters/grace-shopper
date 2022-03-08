@@ -21,28 +21,22 @@ const AllProducts = () => {
         ? 'No food'
         : products.map((product) => {
             return (
-              <div key={product.id}>
-                <p>
-                  <Link to={`/products/${product.id}`}>
-                    Food Name:
-                    {product.name}
-                  </Link>
-                  &nbsp;&nbsp;&nbsp;
-                </p>
-                <p>
-                  <img src={product.imageURL} width="300" height="300" />
-                </p>
-                <p>
-                  <u>Food description: </u>
-                  {product.description}
-                </p>
-                <p>
-                  <u>Food Price: </u> {product.price}
-                </p>
-                <p>
-                  <u>Product calories: </u>
-                  {product.calories}
-                </p>
+              <div class="allproductcontainer">
+                <div class="square">
+                  <img src={product.imageURL} class="mask" />
+                  <div class="foodtitle">{product.name}</div>
+                  <p>{product.description}</p>
+
+                  <div>
+                    <Link
+                      to={`/products/${product.id}`}
+                      target="_"
+                      class="button"
+                    >
+                      View Meal
+                    </Link>
+                  </div>
+                </div>
               </div>
             );
           })}

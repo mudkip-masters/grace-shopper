@@ -56,7 +56,7 @@ const Cart = () => {
                 return (
                   <div key={product.id}>
                     <p>{product.name}</p>
-                    <img src={product.imageURL} width="100" height="100" />
+                    <img src={product.imageURL} />
                     <p>
                       <button
                         onClick={() =>

@@ -7,7 +7,7 @@ const About = () => {
       <div className="about-us-container">
         <section className="about-card">
           <div className="image-div">
-            <img
+            <img 
               className="about-image1"
               src="https://st.depositphotos.com/2101611/3925/v/600/depositphotos_39258143-stock-illustration-businessman-avatar-profile-picture.jpg"
               alt="Sulaiman"
