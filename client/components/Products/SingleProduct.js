@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { fetchSingleProduct } from '../../store/SingleProduct';
-import { useDispatch, useSelector } from 'react-redux';
-import { me } from '../../store';
-import { addCart, addToCart } from '../../store/order';
+import React, { useEffect, useState } from "react";
+import { fetchSingleProduct } from "../../store/SingleProduct";
+import { useDispatch, useSelector } from "react-redux";
+import { me } from "../../store";
+import { addCart, addToCart } from "../../store/order";
 
 const SingleProduct = (props) => {
   const [state, setState] = useState(0);
@@ -22,6 +22,7 @@ const SingleProduct = (props) => {
 
   const handleClick = () => {
     dispatch(addToCart(user.id, props.match.params.id, state));
+    console.log("hello", props.match.params.id);
   };
 
   const handleChange = (evt) => {
