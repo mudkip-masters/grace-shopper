@@ -1,5 +1,6 @@
 'use strict';
 
+const { isAdmin } = require('../server/api/securityCheck');
 const {
   db,
   models: { User, Product },
@@ -17,8 +18,9 @@ async function seed() {
 
   // Creating Users
   const users = await Promise.all([
-    User.create({ username: 'cody', password: '123' }),
-    User.create({ username: 'murphy', password: '345' }),
+    User.create({ username: 'cody', password: '123', isAdmin: false }),
+    User.create({ username: 'murphy', password: '345', isAdmin: false }),
+    User.create({ username: 'sulaiman', password: '321', isAdmin: true }),
   ]);
   // Ccreatinf Product
   const products = await Promise.all([
