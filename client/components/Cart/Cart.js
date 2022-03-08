@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { me } from '../../store';
+import Confirmation from './Confirmation';
 import {
   addCart,
   decreaseQuantity,
@@ -40,14 +41,14 @@ const Cart = () => {
   };
 
   if (!order.products) {
-    return <h1>"cart is empty"</h1>;
+    return <Confirmation />;
   }
 
   return (
     <div>
       {
         <>
-          <header>Your Cart:</header>
+          <h1>Your Cart:</h1>
           <div>
             {order.products.length < 1 ? (
               <h1>Your cart is empty!</h1>
@@ -55,9 +56,9 @@ const Cart = () => {
               order.products.map((product) => {
                 return (
                   <div key={product.id}>
-                    <p>{product.name}</p>
+                    <h2>{product.name}</h2>
                     <img src={product.imageURL} />
-                    <p>
+                    <h1>
                       <button
                         onClick={() =>
                           handleIncreaseQuantity(product.id, order.id)
@@ -78,21 +79,21 @@ const Cart = () => {
                       >
                         Delete
                       </button>
-                    </p>
-                    <p>
+                    </h1>
+                    <h2>
                       Price: {product.price * product.orderProduct.quantity}
-                    </p>
+                    </h2>
                     <hr />
                   </div>
                 );
               })
             )}
-            <p>
+            <h2>
               Total Price:{' '}
               {order.products.reduce((acc, product) => {
                 return (acc += product.price * product.orderProduct.quantity);
               }, 0)}
-            </p>
+            </h2>
           </div>
         </>
       }

@@ -7,7 +7,7 @@ const About = () => {
       <div className="about-us-container">
         <section className="about-card">
           <div className="image-div">
-            <img 
+            <img
               className="about-image1"
               src="https://st.depositphotos.com/2101611/3925/v/600/depositphotos_39258143-stock-illustration-businessman-avatar-profile-picture.jpg"
               alt="Sulaiman"
@@ -43,7 +43,7 @@ const About = () => {
           <h2>Veysel Basbaydar</h2>
           <div className="links">
             <a
-              href="https://www.linkedin.com/in/sulaiman-marey-7435831b0/"
+              href="https://www.linkedin.com/in/veysel-g-basbaydar-447735143/"
               target="_blank"
               rel="noreferrer"
             >
@@ -97,7 +97,7 @@ const About = () => {
           <h2>Robert Berman</h2>
           <div className="links">
             <a
-              href="https://github.com/robert-berman"
+              href="https://www.linkedin.com/in/robertbermantech/"
               target="_blank"
               rel="noreferrer"
             >
