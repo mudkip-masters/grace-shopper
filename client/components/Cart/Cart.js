@@ -13,7 +13,7 @@ import {
 
 const Cart = () => {
   const user = useSelector((state) => state.auth);
-  const order = useSelector((state) => state.order);
+  const order = useSelector((state) => state.order) || { products: [] };
 
   const dispatch = useDispatch();
 

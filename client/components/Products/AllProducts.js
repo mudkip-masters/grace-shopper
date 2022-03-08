@@ -16,7 +16,14 @@ const AllProducts = () => {
   }, []);
 
   return (
-    <div>
+    <div
+      style={{
+        display: 'flex',
+        flexWrap: 'wrap',
+        alignItems: 'center',
+        justifyContent: 'space-evenly',
+      }}
+    >
       {products === undefined || products === []
         ? 'No food'
         : products.map((product) => {
@@ -28,11 +35,7 @@ const AllProducts = () => {
                   <p>{product.description}</p>
 
                   <div>
-                    <Link
-                      to={`/products/${product.id}`}
-                      target="_"
-                      class="button"
-                    >
+                    <Link to={`/products/${product.id}`} class="button">
                       View Meal
                     </Link>
                   </div>
