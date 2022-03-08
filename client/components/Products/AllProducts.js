@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { setProducts } from "../../store/products";
-import { connect, useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { fetchCart } from "../../store/order";
+import React, { useEffect, useState } from 'react';
+import { setProducts } from '../../store/products';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 const AllProducts = () => {
   const dispatch = useDispatch();
@@ -19,7 +18,7 @@ const AllProducts = () => {
   return (
     <div>
       {products === undefined || products === []
-        ? "No food"
+        ? 'No food'
         : products.map((product) => {
             return (
               <div key={product.id}>

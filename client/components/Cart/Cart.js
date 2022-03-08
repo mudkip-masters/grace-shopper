@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { me } from "../../store";
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { me } from '../../store';
 import {
   addCart,
   decreaseQuantity,
@@ -8,7 +8,7 @@ import {
   fulfillCart,
   increaseQuantity,
   removeCart,
-} from "../../store/order";
+} from '../../store/order';
 
 const Cart = () => {
   const user = useSelector((state) => state.auth);
@@ -18,7 +18,6 @@ const Cart = () => {
 
   useEffect(() => {
     dispatch(me());
-    console.log(user.id);
   }, []);
 
   useEffect(() => {
@@ -39,8 +38,6 @@ const Cart = () => {
   const handleRemove = (productId, orderId) => {
     dispatch(removeCart(productId, user.id, orderId));
   };
-
-  console.log(`Here is our cart ${order.id}`);
 
   if (!order.products) {
     return <h1>"cart is empty"</h1>;
@@ -91,7 +88,7 @@ const Cart = () => {
               })
             )}
             <p>
-              Total Price:{" "}
+              Total Price:{' '}
               {order.products.reduce((acc, product) => {
                 return (acc += product.price * product.orderProduct.quantity);
               }, 0)}

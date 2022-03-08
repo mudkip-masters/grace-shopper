@@ -6,14 +6,12 @@ import auth from './auth';
 import products from './products';
 import productReducer from './SingleProduct';
 import orderReducer from './order';
-import orderProductsReducer from './orderProducts';
 
 const reducer = combineReducers({
   auth,
   products,
   product: productReducer,
   order: orderReducer,
-  orderProducts: orderProductsReducer,
 });
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }))
