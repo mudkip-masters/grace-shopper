@@ -32,14 +32,41 @@ export const addCart = (userId) => {
 };
 
 //add to cart, find cart if exists, or create
-export const addToCart = (userId, productId, quantity) => {
+export const addToCart = (userId, product, quantity) => {
+  console.log(typeof quantity, quantity);
+
   return async (dispatch) => {
     try {
-      const { data } = await axios.post(`/api/users/${userId}/addToCart`, {
-        productId,
-        quantity,
-      });
-      dispatch(_addToCart(data));
+      if (!userId) {
+        //find cart, if cart doesnt exist create cart
+        const cart = JSON.parse(localStorage.getItem("cart"));
+        if (!cart) {
+          let cart = {
+            products: [],
+          };
+          localStorage.setItem("cart", JSON.stringify(cart));
+        }
+
+        const currentCart = JSON.parse(localStorage.getItem("cart"));
+
+        const index = currentCart.products.findIndex(
+          (elem) => elem.id === product.id
+        );
+
+        const productQuantity = product;
+        productQuantity.orderProduct = { quantity: Number(quantity) };
+
+        if (index === -1) {
+          currentCart.products.push(productQuantity);
+        }
+        localStorage.setItem("cart", JSON.stringify(currentCart));
+      } else {
+        const { data } = await axios.post(`/api/users/${userId}/addToCart`, {
+          productId: product.id,
+          quantity,
+        });
+        dispatch(_addToCart(data));
+      }
     } catch (error) {
       console.log(error);
     }
@@ -50,8 +77,20 @@ export const addToCart = (userId, productId, quantity) => {
 export const fetchCart = (userId) => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.get(`/api/users/${userId}/cart`);
-      dispatch(_fetchCart(data));
+      //find cart, if cart doesnt exist create cart
+      if (!userId) {
+        const cart = JSON.parse(localStorage.getItem("cart"));
+        if (!cart) {
+          let cart = {
+            products: [],
+          };
+          localStorage.setItem("cart", JSON.stringify(cart));
+        }
+        dispatch(fetchCart(cart));
+      } else {
+        const { data } = await axios.get(`/api/users/${userId}/cart`);
+        dispatch(_fetchCart(data));
+      }
     } catch (error) {
       console.log(error);
     }
@@ -72,12 +111,26 @@ export const fulfillCart = (userId) => {
 export const increaseQuantity = (productId, userId, orderId) => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.put(`/api/users/${userId}/cart`, {
-        orderId,
-        productId,
-        type: "increase", //
-      });
-      dispatch(fetchCart(userId)); // after update the amount to see the current orderProduct
+      if (!userId) {
+        const cart = JSON.parse(localStorage.getItem("cart"));
+
+        const index = cart.products.findIndex(
+          (object) => object.id === productId
+        );
+
+        if (cart.products[index].orderProduct.quantity < 10) {
+          cart.products[index].orderProduct.quantity += 1;
+        }
+        localStorage.setItem("cart", JSON.stringify(cart));
+        dispatch(fetchCart());
+      } else {
+        const { data } = await axios.put(`/api/users/${userId}/cart`, {
+          orderId,
+          productId,
+          type: "increase", //
+        });
+        dispatch(fetchCart(userId)); // after update the amount to see the current orderProduct
+      }
     } catch (error) {
       console.log(error);
     }
@@ -88,12 +141,26 @@ export const increaseQuantity = (productId, userId, orderId) => {
 export const decreaseQuantity = (productId, userId, orderId) => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.put(`/api/users/${userId}/cart`, {
-        orderId,
-        productId,
-        type: "decrease",
-      });
-      dispatch(fetchCart(userId));
+      if (!userId) {
+        const cart = JSON.parse(localStorage.getItem("cart"));
+
+        const index = cart.products.findIndex(
+          (object) => object.id === productId
+        );
+
+        if (cart.products[index].orderProduct.quantity > 1) {
+          cart.products[index].orderProduct.quantity -= 1;
+        }
+        localStorage.setItem("cart", JSON.stringify(cart));
+        dispatch(fetchCart());
+      } else {
+        const { data } = await axios.put(`/api/users/${userId}/cart`, {
+          orderId,
+          productId,
+          type: "decrease",
+        });
+        dispatch(fetchCart(userId));
+      }
     } catch (error) {
       console.log(error);
     }
@@ -104,10 +171,23 @@ export const decreaseQuantity = (productId, userId, orderId) => {
 export const removeCart = (productId, userId, orderId) => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.delete(
-        `/api/users/${userId}/cart/${orderId}/${productId}`
-      );
-      dispatch(fetchCart(userId));
+      if (!userId) {
+        const cart = JSON.parse(localStorage.getItem("cart"));
+
+        const removedCart = cart.products.filter(
+          (product) => product.id !== productId
+        );
+
+        cart.products = removedCart;
+
+        localStorage.setItem("cart", JSON.stringify(cart));
+        dispatch(fetchCart());
+      } else {
+        const { data } = await axios.delete(
+          `/api/users/${userId}/cart/${orderId}/${productId}`
+        );
+        dispatch(fetchCart(userId));
+      }
     } catch (error) {
       console.log(error);
     }

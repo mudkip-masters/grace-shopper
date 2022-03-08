@@ -5,7 +5,7 @@ import { me } from '../../store';
 import { addCart, addToCart } from '../../store/order';
 
 const SingleProduct = (props) => {
-  const [state, setState] = useState(0);
+  const [state, setState] = useState(1);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth);
 
@@ -18,10 +18,10 @@ const SingleProduct = (props) => {
     dispatch(fetchSingleProduct(props.match.params.id));
   }, []);
 
-  console.log(`user.id: ${user.id}`);
-
   const handleClick = () => {
-    dispatch(addToCart(user.id, props.match.params.id, state));
+
+    dispatch(addToCart(user.id, product, state));
+
   };
 
   const handleChange = (evt) => {
