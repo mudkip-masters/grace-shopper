@@ -1,7 +1,7 @@
-import axios from "axios";
+import axios from 'axios';
 // action type
-const ADD_TO_CART = "ADD_TO_CART";
-const FETCH_CART = "FETCH_CART";
+const ADD_TO_CART = 'ADD_TO_CART';
+const FETCH_CART = 'FETCH_CART';
 
 // action creator
 const _addToCart = (cart) => {
@@ -39,15 +39,15 @@ export const addToCart = (userId, product, quantity) => {
     try {
       if (!userId) {
         //find cart, if cart doesnt exist create cart
-        const cart = JSON.parse(localStorage.getItem("cart"));
+        const cart = JSON.parse(localStorage.getItem('cart'));
         if (!cart) {
           let cart = {
             products: [],
           };
-          localStorage.setItem("cart", JSON.stringify(cart));
+          localStorage.setItem('cart', JSON.stringify(cart));
         }
 
-        const currentCart = JSON.parse(localStorage.getItem("cart"));
+        const currentCart = JSON.parse(localStorage.getItem('cart'));
 
         const index = currentCart.products.findIndex(
           (elem) => elem.id === product.id
@@ -59,7 +59,7 @@ export const addToCart = (userId, product, quantity) => {
         if (index === -1) {
           currentCart.products.push(productQuantity);
         }
-        localStorage.setItem("cart", JSON.stringify(currentCart));
+        localStorage.setItem('cart', JSON.stringify(currentCart));
       } else {
         const { data } = await axios.post(`/api/users/${userId}/addToCart`, {
           productId: product.id,
@@ -79,14 +79,14 @@ export const fetchCart = (userId) => {
     try {
       //find cart, if cart doesnt exist create cart
       if (!userId) {
-        const cart = JSON.parse(localStorage.getItem("cart"));
+        const cart = JSON.parse(localStorage.getItem('cart'));
         if (!cart) {
           let cart = {
             products: [],
           };
-          localStorage.setItem("cart", JSON.stringify(cart));
+          localStorage.setItem('cart', JSON.stringify(cart));
         }
-        dispatch(fetchCart(cart));
+        dispatch(_fetchCart(cart));
       } else {
         const { data } = await axios.get(`/api/users/${userId}/cart`);
         dispatch(_fetchCart(data));
@@ -112,7 +112,7 @@ export const increaseQuantity = (productId, userId, orderId) => {
   return async (dispatch) => {
     try {
       if (!userId) {
-        const cart = JSON.parse(localStorage.getItem("cart"));
+        const cart = JSON.parse(localStorage.getItem('cart'));
 
         const index = cart.products.findIndex(
           (object) => object.id === productId
@@ -121,13 +121,13 @@ export const increaseQuantity = (productId, userId, orderId) => {
         if (cart.products[index].orderProduct.quantity < 10) {
           cart.products[index].orderProduct.quantity += 1;
         }
-        localStorage.setItem("cart", JSON.stringify(cart));
+        localStorage.setItem('cart', JSON.stringify(cart));
         dispatch(fetchCart());
       } else {
         const { data } = await axios.put(`/api/users/${userId}/cart`, {
           orderId,
           productId,
-          type: "increase", //
+          type: 'increase', //
         });
         dispatch(fetchCart(userId)); // after update the amount to see the current orderProduct
       }
@@ -142,7 +142,7 @@ export const decreaseQuantity = (productId, userId, orderId) => {
   return async (dispatch) => {
     try {
       if (!userId) {
-        const cart = JSON.parse(localStorage.getItem("cart"));
+        const cart = JSON.parse(localStorage.getItem('cart'));
 
         const index = cart.products.findIndex(
           (object) => object.id === productId
@@ -151,13 +151,13 @@ export const decreaseQuantity = (productId, userId, orderId) => {
         if (cart.products[index].orderProduct.quantity > 1) {
           cart.products[index].orderProduct.quantity -= 1;
         }
-        localStorage.setItem("cart", JSON.stringify(cart));
+        localStorage.setItem('cart', JSON.stringify(cart));
         dispatch(fetchCart());
       } else {
         const { data } = await axios.put(`/api/users/${userId}/cart`, {
           orderId,
           productId,
-          type: "decrease",
+          type: 'decrease',
         });
         dispatch(fetchCart(userId));
       }
@@ -172,7 +172,7 @@ export const removeCart = (productId, userId, orderId) => {
   return async (dispatch) => {
     try {
       if (!userId) {
-        const cart = JSON.parse(localStorage.getItem("cart"));
+        const cart = JSON.parse(localStorage.getItem('cart'));
 
         const removedCart = cart.products.filter(
           (product) => product.id !== productId
@@ -180,7 +180,7 @@ export const removeCart = (productId, userId, orderId) => {
 
         cart.products = removedCart;
 
-        localStorage.setItem("cart", JSON.stringify(cart));
+        localStorage.setItem('cart', JSON.stringify(cart));
         dispatch(fetchCart());
       } else {
         const { data } = await axios.delete(

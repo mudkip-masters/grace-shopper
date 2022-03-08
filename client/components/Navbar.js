@@ -8,7 +8,7 @@ const Navbar = () => {
   const dispatch = useDispatch();
 
   return (
-    <div>
+    <div style={{ textAlign: 'center' }}>
       <h1>Virtual Kitchen</h1>
       <nav>
         {isLoggedIn ? (
