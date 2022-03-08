@@ -18,7 +18,6 @@ const Cart = () => {
 
   useEffect(() => {
     dispatch(me());
-    console.log(user.id);
   }, []);
 
   useEffect(() => {
@@ -40,7 +39,8 @@ const Cart = () => {
     dispatch(removeCart(productId, user.id, orderId));
   };
 
-  console.log(`Here is our cart ${order.id}`);
+  // console.log(`Here is our cart ${JSON.parse(localStorage.getItem("cart"))}`);
+  console.log(`Here is our cart ${order}`);
 
   if (!order.products) {
     return <h1>"cart is empty"</h1>;

@@ -5,10 +5,10 @@ import { me } from "../../store";
 import { addCart, addToCart } from "../../store/order";
 
 const SingleProduct = (props) => {
-  const [state, setState] = useState(0);
+  const [state, setState] = useState(1);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth);
-  const order = useSelector((state) => state.order);
+  // const order = useSelector((state) => state.order);
 
   const product =
     useSelector((state) => {
@@ -19,11 +19,9 @@ const SingleProduct = (props) => {
     dispatch(fetchSingleProduct(props.match.params.id));
   }, []);
 
-  console.log(`user.id: ${user.id}`);
-
   const handleClick = () => {
-    console.log(`the state is: ${state}`);
-    dispatch(addToCart(user.id, props.match.params.id, state));
+    console.log(`product ${product.name}`);
+    dispatch(addToCart(user.id, product, state));
   };
 
   const handleChange = (evt) => {
