@@ -1,7 +1,7 @@
-import React from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
-import { logout } from "../store";
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { logout } from '../store';
 
 const Navbar = () => {
   const isLoggedIn = useSelector((state) => !!state.auth.id);
@@ -9,13 +9,13 @@ const Navbar = () => {
 
   return (
     <div>
-      <h1>FS-App-Template</h1>
+      <h1>Virtual Kitchen</h1>
       <nav>
         {isLoggedIn ? (
           <div>
             {/* The navbar will show these links after you log in */}
             <Link to="/home">Home</Link>
-            <Link to="/about">About</Link>
+            <Link to="/team">Team</Link>
             <Link to="/products">Products</Link>
             <Link to="/cart">Cart</Link>
 
@@ -28,7 +28,7 @@ const Navbar = () => {
             {/* The navbar will show these links before you log in */}
             <Link to="/login">Login</Link>
             <Link to="/signup">Sign Up</Link>
-            <Link to="/about">About</Link>
+            <Link to="/team">Team</Link>
             <Link to="/products">Products</Link>
             <Link to="/cart">Cart</Link>
           </div>

@@ -1,19 +1,20 @@
-const router = require("express").Router();
+const router = require('express').Router();
 const {
   models: { User },
-} = require("../db");
-const Order = require("../db/models/Order");
-const OrderProduct = require("../db/models/OrderProduct");
-const Product = require("../db/models/Product");
+} = require('../db');
+const Order = require('../db/models/Order');
+const OrderProduct = require('../db/models/OrderProduct');
+const Product = require('../db/models/Product');
+const { requireToken, isAdmin } = require('./securityCheck');
 module.exports = router;
 
-router.get("/", async (req, res, next) => {
+router.get('/', requireToken, isAdmin, async (req, res, next) => {
   try {
     const users = await User.findAll({
       // explicitly select only the id and username fields - even though
       // users' passwords are encrypted, it won't help if we just
       // send everything to anyone who asks!
-      attributes: ["id", "username"],
+      attributes: ['id', 'username', 'isAdmin'],
     });
     res.json(users);
   } catch (err) {
@@ -22,7 +23,7 @@ router.get("/", async (req, res, next) => {
 });
 
 //get a single user, and eager load its orders and orderProducts
-router.get("/:userId", async (req, res, next) => {
+router.get('/:userId', async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.userId);
     res.json(user);
@@ -38,7 +39,7 @@ router.get("/:userId", async (req, res, next) => {
 //search for a user's fulfilled orders
 
 //GET /api/users/:userId/cart, load an unfilled order (cart) based on the user's orders
-router.get("/:userId/cart", async (req, res, next) => {
+router.get('/:userId/cart', async (req, res, next) => {
   try {
     const cart = await Order.findOne({
       where: {
@@ -56,7 +57,7 @@ router.get("/:userId/cart", async (req, res, next) => {
 });
 
 //POST /api/users/:userId/cart (CREATE A NEW CART)
-router.post("/:userId/cart", async (req, res, next) => {
+router.post('/:userId/cart', async (req, res, next) => {
   try {
     const cart = await Order.create({
       userId: req.params.userId,
@@ -70,7 +71,7 @@ router.post("/:userId/cart", async (req, res, next) => {
 });
 
 //POST /api/users/:userId/cart (FIND OR CREATE)
-router.post("/:userId/addToCart", async (req, res, next) => {
+router.post('/:userId/addToCart', async (req, res, next) => {
   try {
     //find a cart if it already exists, OR create a new cart if there is no cart for user/guest
     const cart = await Order.findOrCreate({
@@ -99,7 +100,7 @@ router.post("/:userId/addToCart", async (req, res, next) => {
 });
 
 //PUT /api/users/:userId/cart request update quantites
-router.put("/:userId/cart", async (req, res, next) => {
+router.put('/:userId/cart', async (req, res, next) => {
   try {
     const orderId = req.body.orderId;
     const productId = req.body.productId;
@@ -112,10 +113,10 @@ router.put("/:userId/cart", async (req, res, next) => {
     });
     // console.log("singleProduct", singleOrderProduct);
     let currentQuantity = singleOrderProduct.quantity;
-    if (type === "increase") {
+    if (type === 'increase') {
       currentQuantity = currentQuantity + 1 >= 10 ? 10 : currentQuantity + 1;
     }
-    if (type === "decrease") {
+    if (type === 'decrease') {
       currentQuantity = currentQuantity - 1 <= 1 ? 1 : currentQuantity - 1;
     }
     console.log(req.body.quantity);
@@ -126,7 +127,7 @@ router.put("/:userId/cart", async (req, res, next) => {
 });
 
 //PUT /api/users/:userId/order, set a cart to isFulfilled: true
-router.put("/:userId/order", async (req, res, next) => {
+router.put('/:userId/order', async (req, res, next) => {
   try {
     const cart = await Order.findOne({
       where: {
@@ -141,7 +142,7 @@ router.put("/:userId/order", async (req, res, next) => {
 });
 
 //DELETE /api/users/:userId/cart/:orderId/:productId delete a orderProduct row (delete an item from cart)
-router.delete("/:userId/cart/:orderId/:productId", async (req, res, next) => {
+router.delete('/:userId/cart/:orderId/:productId', async (req, res, next) => {
   try {
     const orderId = req.params.orderId;
     const productId = req.params.productId;
